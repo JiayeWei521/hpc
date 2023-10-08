@@ -34,8 +34,8 @@ new_comm2 = comm.Split(color=color2, key=rank)
 new_rank2 = new_comm2.Get_rank()
 new_size2 = new_comm2.Get_size()
 
-print("Original rank: ", rank, "\n"
-      "color1: ", color1, "\n"
-      "new rank1: ", new_rank1, "\n"
-      "color2: ", color2, "\n"
+print("Original rank: ", rank,
+      "color1: ", color1,
+      "new rank1: ", new_rank1,
+      "color2: ", color2,
       "new rank 2: ", new_rank2)

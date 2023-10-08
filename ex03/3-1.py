@@ -1,3 +1,13 @@
+"""
+Created on 03-10-2023
+
+3-1.py:
+Reminder of matrix-vector multiplication in Python
+
+@author: Jiaye Wei <jiaye.wei@epfl.ch>
+"""
+
+
 from mpi4py import MPI
 import numpy as np
 
@@ -46,7 +56,6 @@ local_result = matrix_vector_multiplication(submatrix, vector)
 
 # Gather results on the root process
 # Gatherv : Gather vector , gather data to one process from all
-
 
 comm.Gatherv(local_result, global_result, root=0)
 
