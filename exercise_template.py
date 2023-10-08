@@ -1,10 +1,13 @@
 """
-Created on 07-10-2023
+Last update on 
 
-exercise_template.py <--- The name of the source file goes here
-<--- Description of the program goes here.
+exercise_template.py <--- The name of the source file
+<--- Description of the program
 
 @author: Jiaye Wei <jiaye.wei@epfl.ch>
+
+To execute the code, do (4 can be replaced by any number of processors):
+mpiexec -n 4 python script.py
 """
 
 from mpi4py import MPI 
