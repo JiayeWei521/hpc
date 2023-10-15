@@ -1,5 +1,5 @@
 """
-Last update on 08-10-2023
+Last update on 08.10.2023
 
 2-1.py 
 Reminder of a simple MPI code in Python
