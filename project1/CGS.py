@@ -1,5 +1,5 @@
 """
-Created on 08-10-2023
+Last update: 15.10.2023
 
 CGS.py
 Classical Gram-Schmidt (CGS) algorithm
@@ -9,6 +9,7 @@ Classical Gram-Schmidt (CGS) algorithm
 
 from mpi4py import MPI 
 import numpy as np
+from numpy.linalg import norm
 
 # Initialize MPI
 comm = MPI.COMM_WORLD
@@ -22,7 +23,6 @@ def classical_gram_schmidt(A):
     R = np.zeros((n, n))
 
     for j in range(n):
-        # Step 1: Orthogonalization
         v = A[:, j]
         for i in range(j):
             R[i, j] = np.dot(Q[:, i], A[:, j])
@@ -57,3 +57,4 @@ def main_CGS(W):
         print(Q)
         print("Matrix R:")
         print(R)
+

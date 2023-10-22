@@ -36,7 +36,7 @@ elif size != A.shape[0]:
 else:
     # Split the work among processes
     print("rank: ", rank)
-    local_row = comm.scatter(A, root=0)
+    local_row = comm.scatter(A, root=0) # type: ignore
 
     # Compute local multiplication
     local_result = matrix_vector_multiplication(local_row, v)

@@ -1,8 +1,9 @@
 """
-Last update on 08-10-2023
+Last update on 08.10.2023
 
-2-3.py 
+2-3-a.py 
 Collective communication - scattering and broadcasting
+Part a
 
 @author: Jiaye Wei <jiaye.wei@epfl.ch>
 
@@ -20,11 +21,16 @@ size = comm.Get_size()
 
 # Define the vector
 if rank == 0:
-    vector = np.array([16, 62, 97, 25])
+    vector = np.array([16, 62, 90, 21, 7, 53])
+    P = np.eye(8, dtype='d')
 else:
     vector = None
+    P = None
+
+local_size = int(8/size)
+P_local = np.zeros((local_size, 8), dtype='d')
 
 data1 = comm.bcast(vector, root=0)
-data2 = comm.scatter(vector, root=0)  # type: ignore
+comm.Scatterv(P, P_local, root=0)
 
-print("rank: ", rank, "data1: ", data1, "data2: ", data2)
+print("rank: ", rank, "data2: ", P_local)

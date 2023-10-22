@@ -1,18 +1,16 @@
 """
-Last update: 15.10.2023
+Created on 21.10.2023
 
-4-2.py 
-<--- Description of the program
+CGS2
 
 @author: Jiaye Wei <jiaye.wei@epfl.ch>
-
-To execute the code, do (4 can be replaced by any number of processors):
-mpiexec -n 4 python script.py
 """
 
 from mpi4py import MPI 
 import numpy as np
 from numpy.linalg import norm
+
+from matrices import matrix_1
 
 # Initialize MPI
 comm = MPI.COMM_WORLD
@@ -21,8 +19,8 @@ size = comm.Get_size()
 
 wt = MPI.Wtime() # We are going to time this
 
-m = 5*size
-n = 2*size
+m = 50*size
+n = 20*size
 local_size = int(m/size)
 
 # Define
@@ -34,9 +32,7 @@ QT = None
 P = None
 
 if rank == 0:
-    W = np.arange(1, m*n + 1, 1, dtype = 'd')
-    W = np.reshape(W, (m, n))
-    W = W + np.eye(m, n) # Make this full rank
+    W = matrix_1(m, n)
     Q = np.zeros((m,n), dtype = 'd')
     QT = np.zeros((n,m), dtype = 'd')
     Qkreceived = np.zeros((m, 1), dtype = 'd')
@@ -62,6 +58,7 @@ if rank == 0:
 comm.Barrier()
 
 comm.Scatterv(QT, QT_local, root=0) # We have columns of Q (or rows of Qt)
+
 # Start iterations in columns
 for k in range(1, n):
     # We have already built column 0, so we move to column 1
