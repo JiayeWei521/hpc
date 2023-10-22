@@ -9,7 +9,6 @@ CGS2
 from mpi4py import MPI 
 import numpy as np
 from numpy.linalg import norm
-
 from matrices import matrix_1
 
 # Initialize MPI
