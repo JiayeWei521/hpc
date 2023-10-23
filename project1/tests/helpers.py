@@ -14,7 +14,6 @@ def func_1(x, mu):
     denominator = cos(100 * (mu - x)) + 1.1
     return numerator/denominator
 
-
 def matrix_1(m ,n):
     C = np.zeros((m ,n), dtype = 'd')
     for i in range(m):
@@ -22,3 +21,7 @@ def matrix_1(m ,n):
             C[i][j] = func_1(i/(m-1), j/(n-1))
     return C
 
+def loss_of_orthogonality(Q):
+    n = Q.shape[1]
+    difference = np.eye(n, dtype='d') - np.transpose(Q) @ Q
+    return np.linalg.norm(difference, ord=2)
