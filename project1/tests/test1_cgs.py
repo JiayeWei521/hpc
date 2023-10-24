@@ -20,7 +20,7 @@ size = comm.Get_size()
 
 wt = MPI.Wtime() # We are going to time this
 
-m = 500
+m = 5000
 n = 60
 local_size = int(m/size)
 

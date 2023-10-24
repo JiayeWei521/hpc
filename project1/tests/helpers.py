@@ -9,6 +9,9 @@ All the matrices used for testing the performance of our algorithms
 from math import sin, cos
 import numpy as np
 
+def create_communicator():
+    return 0
+
 def func_1(x, mu):
     numerator = sin(10 * (mu + x))
     denominator = cos(100 * (mu - x)) + 1.1
@@ -21,7 +24,27 @@ def matrix_1(m ,n):
             C[i][j] = func_1(i/(m-1), j/(n-1))
     return C
 
+def test_matrix_1(m, n):
+    return np.fromfunction(lambda i,j: func_1(i,j), 
+                           (m,n), 
+                           dtype=float)
+
 def loss_of_orthogonality(Q):
     n = Q.shape[1]
     difference = np.eye(n, dtype='d') - np.transpose(Q) @ Q
     return np.linalg.norm(difference, ord=2)
+
+def compute_condition_number():
+    return 0
+
+def is_positive_definite(M):
+    is_symmetric = np.allclose(M, M.T)
+
+    if is_symmetric:
+        eigenvalues = np.linalg.eigvals(M)
+        if all(eigenvalues > 0):
+            True
+        else:
+            False
+    else:
+        False

@@ -64,11 +64,9 @@ comm.Barrier()
 
 # Start iterations in columns
 for k in range(1, n):
-    # Build the projector P 
-    if rank == 0:
-        for j in range(0, k-1):
-            sub_P = np.eye(m) - Q[:, j] @ np.transpose(Q[:, j])
-            P = sub_P @ P
+    # Build the projector P
+    for j in range(0, k-1):
+        
         
     # Scatter the rows of projector to each processor
     comm.Scatterv(P, P_local, root=0) 
