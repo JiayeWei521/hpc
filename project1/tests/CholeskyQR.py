@@ -1,7 +1,6 @@
 from mpi4py import MPI 
 import numpy as np
-from numpy.linalg import cholesky
-from numpy.linalg import inv
+from numpy.linalg import cholesky, inv, cond
 from helpers import matrix_1, loss_of_orthogonality, is_positive_definite
 
 # Initialize MPI
@@ -11,8 +10,8 @@ size = comm.Get_size()
 
 wt = MPI.Wtime()
 
-m = 5000
-n = 60
+m = 50000
+n = 600
 local_size = int(m/size)
 
 epsilon = 1e-4  # Small positive constant to enforce positive definiteness
@@ -38,7 +37,7 @@ W_local = np.zeros((local_size, n), dtype = 'd')
 comm.Scatterv(W, W_local, root=0) # scattering W into blocks of rows
 local_product = np.transpose(W_local) @ W_local # locally multiply
 comm.Reduce(local_product, WtW, op=MPI.SUM, root=0) # sum-up the local product
-comm.Barrier()
+# comm.Barrier()
 
 # Cholesky factorization to Wt*W to get R
 if rank == 0:
@@ -48,10 +47,9 @@ if rank == 0:
     R_inv = inv(R) # compute the inverse of R
     Q = W @ R_inv # compute Q = W @ R^-1
 
-    loss = loss_of_orthogonality(Q)
-    
     wt = MPI.Wtime() - wt
-    print("Q: \n", Q)
-    print("R: \n", R)
+    # print("Q: \n", Q)
+    # print("R: \n", R)
     print("Time taken = ", wt)
-    print("Loss of orthogonality = ", loss)
+    print("Loss of orthogonality: ", loss_of_orthogonality(Q))
+    print("Condition number: ", cond(Q))
