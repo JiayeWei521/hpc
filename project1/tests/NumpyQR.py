@@ -4,7 +4,7 @@ from helpers import matrix_1, loss_of_orthogonality, test_matrix_1
 
 m = 50000
 n = 600
-W =  test_matrix_1(m, n)
+W =  matrix_1(m, n)
 # W1 = test_matrix_1(m, n)
 
 start_time = time.time()

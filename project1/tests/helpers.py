@@ -12,10 +12,11 @@ import numpy as np
 def create_communicator():
     return 0
 
-def func_1(x, mu):
-    numerator = float(sin(10.0 * (mu + x)))
-    denominator = float(cos(100.0 * (mu - x)) + 1.1)
-    return numerator/denominator
+def func_1(x, y):
+    numerator = sin(10*(x+y))
+    denominator = cos(100*(y-x)) + 1.1
+    ratio = float(numerator/denominator)
+    return ratio
 
 def matrix_1(m ,n):
     C = np.zeros((m ,n), dtype = 'd')
@@ -25,11 +26,9 @@ def matrix_1(m ,n):
     return C
 
 def test_matrix_1(m, n):
-    return np.fromfunction(function = lambda i,j: func_1(i[0][0],j[0][0]), 
+    return np.fromfunction(function = lambda i,j: func_1(i/(m-1), j/(n-1)), 
                            shape = (m, n), 
                            dtype=float)
-
-test_matrix_1(1,1)
 
 def loss_of_orthogonality(Q):
     n = Q.shape[1]
